@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <style>
+        .range {
+            position: relative;
+            padding: 10px;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 600px;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 10px;
+        }
+
+        .track_range {
+            pointer-events: none;
+        }
+
+        .track_range::-webkit-slider-runnable-track {
+            background: #D0D0D0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .track_range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            background: transparent;
+            height: 1px;
+            width: 1px;
+            box-shadow: -600px 0 0 600px #666666;
+        }
+
+        .thumb_range::-webkit-slider-runnable-track {
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .thumb_range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: 0px solid #ffffff;
+            border-radius: 20px;
+            height: 40px;
+            width: 40px;
+            background: #1180AD;
+            cursor: pointer;
+            margin: -12px 0px 0px 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <div class="range">
+            <input type="range" min="1" max="100" class="track_range" />
+            <input type="range" min="1" max="100" class="thumb_range" />
+        </div>
+    </form>
+    <div id="demo"></div>
+</body>
+
+<script>
+
+    window.onload = function () {
+
+        var ranges = document.getElementsByClassName('range');
+
+        for (var i = 0; i < ranges.length; i++) {
+
+            var thumbRange = null,
+                trackRange = null;
+
+            for (var j = 0; j < ranges[i].children.length; j++) {
+
+                var child = ranges[i].children[j];
+
+                if (child.className === 'thumb_range') {
+
+                    var thumbRange = child;
+
+                }
+
+                else if (child.className === 'track_range') {
+
+                    var trackRange = child;
+
+                }
+
+            }
+
+            thumbRange.oninput = function (thumbRange, trackRange) {
+
+                return function (e) {
+
+                    trackRange.value = thumbRange.value;
+
+                    document.getElementById("demo").innerHTML = trackRange.value || thumbRange.value;
+
+                };
+
+            }(thumbRange, trackRange);
+
+        }
+
+    }
+
+</script>
+
+</html>
